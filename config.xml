@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget android-versionCode="1" ios-CFBundleVersion="1" version="0.0.1" id="com.studiocation.seabattle"  >
+<widget xmlns:android="http://schemas.android.com/apk/res/android" android-versionCode="1" ios-CFBundleVersion="1" version="0.0.1" id="com.studiocation.seabattle"  >
 	<name>Sea Battle</name>
 	<description></description>
 	<author>Studio Cation</author>
