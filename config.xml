@@ -123,8 +123,9 @@
 		<activity android:launchMode="singleTop" />
 	</config-file>
 	
-	<access origin="https://*"/>
-	<access origin="http://*"/>
-	<allow-navigation href="http://*"/>
-	<allow-navigation href="https://*"/>
+	<allow-navigation href="http://*/*" />
+	<allow-navigation href="https://*/*" />
+	<allow-navigation href="data:*" />
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />
 </widget>
