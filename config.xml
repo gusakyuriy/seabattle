@@ -67,8 +67,8 @@
 	</platform>
 
 	<platform name="android" >
-		<preference name="android-minSdkVersion" 		value="23"/>
-		<preference name="android-targetSdkVersion" 	value="23"/>
+		<preference name="android-minSdkVersion" 		value="27"/>
+		<preference name="android-targetSdkVersion" 	value="27"/>
 		<preference name="android-installLocation" 		value="auto"/>
 		<preference name="Fullscreen" 					value="true"/>
 		<preference name="Orientation" 					value="landscape"/>
