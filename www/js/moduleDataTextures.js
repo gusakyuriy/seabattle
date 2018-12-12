@@ -45,7 +45,7 @@ function LoadTextureId(){
 
 		InfoTextures.images[InfoTextures.idLoader].img=new Image();
 		InfoTextures.images[InfoTextures.idLoader].img.onload	= CompleteLoadTexture;
-		//InfoTextures.images[InfoTextures.idLoader].img.onerror	= ErrorLoadTexture;
+		InfoTextures.images[InfoTextures.idLoader].img.onerror	= ErrorLoadTexture;
 		InfoTextures.images[InfoTextures.idLoader].img.src = InfoTextures.images[InfoTextures.idLoader].path;
 
 	}else{
