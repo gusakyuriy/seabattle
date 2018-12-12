@@ -34,7 +34,7 @@
 	<preference name="xwalkMultipleApk" 		value="false" />
 	
 	<plugin name="cordova-plugin-globalization" 	source="npm" spec="1.11.0" />
-	<plugin name="cordova-plugin-crosswalk-webview"	source="npm" spec="2.4.0"/>
+
 	<plugin name="cordova-plugin-statusbar" 		source="npm" spec="2.4.2"/>
 	<plugin name="cordova-plugin-device" 			source="npm" spec="2.0.2"/>
 	<plugin name="cordova-plugin-splashscreen" 		source="npm" spec="5.0.2"/>
