@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.studiocation.seabattle"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.studiocation.seabattle"
         },
@@ -29,5 +26,9 @@
             "PACKAGE_NAME": "com.studiocation.seabattle"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.studiocation.seabattle"
+        }
+    }
 }
