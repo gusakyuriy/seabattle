@@ -39,7 +39,6 @@
 	<plugin name="cordova-plugin-device" 			source="npm" spec="2.0.2"/>
 	<plugin name="cordova-plugin-splashscreen" 		source="npm" spec="5.0.2"/>
 	<plugin name="cordova-plugin-powermanagement" 	source="npm" spec="1.0.5"/>
-	<plugin name="cordova-plugin-whitelist" 		source="npm" spec="1.3.3"/>
 
 	<platform  name="ios">
 		<preference name="AutoHideSplashScreen" value="true"/>
