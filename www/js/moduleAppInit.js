@@ -35,9 +35,6 @@ var appMc={};
 //- GAME PHYSICS 
 
 var gameInfo={ 
-	langId			: 0,
-	isSound			: 1,
-	
 	//- world
 	
 	graviryMassK	: 0.003,
@@ -64,12 +61,10 @@ var gameInfo={
 	player0			: {
 			shipId	: 0,
 			level	: 0,
-			shipId	: 0,
 		},	
 	player1			: {
 			shipId	: 0,
 			level	: 0,
-			shipId	: 0,
 		},
 
 	//- eff objects
@@ -103,7 +98,7 @@ var gameInfo={
 	
 	//- debug
 	
-	debug			: false, 
+	debug			: false 
 }
 
 //- MATH

@@ -9,6 +9,8 @@ function EndGame(){
 	}	
 }
 function EndGameResult(){
+	RebootPositionObject(appMc.mcPopups);
+	
 	appMc.mcPopups.visible = true;
 	
 	appMc.mcPopupsContentBg.texture = InfoTextures.textures["popup_win"];

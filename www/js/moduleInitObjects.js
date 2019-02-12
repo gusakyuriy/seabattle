@@ -387,7 +387,7 @@ function InitGameObjects(){
 	//- RESIZE
 	
 	TweenMax.to(appObj, 0.5, {overflow:"all", onComplete:InitSizeApp});    
-    jQuery(window).resize(InitSizeApp);
+	jQuery(window).on('resize', InitSizeApp);
 }
 	
 // -----------------------------------------------------------------------------------
@@ -442,16 +442,19 @@ function InitSizeApp(){
 		//---------------------------------------------------------------------------
 		//- USER INFORMATION SAVED
 		
-		appObj.sdInfo.isSound=1;
-		appObj.sdInfo.idLang=0;
+		appObj.sdInfo.idUser	= "none";
+		appObj.sdInfo.isSound	= 1;
+		appObj.sdInfo.idLang	= 0;
 		
-		/*
-		try{				
-			appObj.sdInfo.idUser=cordova.platformId+'_'+Math.random().toString(36).substr(2, 9)+'_'+appObj.width+'_'+appObj.height;
-		}catch(e){
-			appObj.sdInfo.idUser='none_'+Math.random().toString(36).substr(2, 9)+'_'+appObj.width+'_'+appObj.height;
-		}
-		 
+		appObj.sdInfo.idGuild = 0; 			// Гильдия игрока (0 - неопределен, 1 - пират, 2 - гвардия);
+		appObj.sdInfo.totalGames = 0;		// Всего игр
+		appObj.sdInfo.winGames = 0;			// Всего побед
+		appObj.sdInfo.experienceGame = 0;	// Игровой опыт на текущем корабле (++)
+		appObj.sdInfo.historyGame = 0;		// Игровая история на текущем корабле ( до 20)
+		appObj.sdInfo.idShip = 0;			// Текущий корабль
+		appObj.sdInfo.numCoin = 0;			// Количество золота
+		appObj.sdInfo.numCrystal = 0;		// Количество кристаллов
+				
 		if(localStorage.getItem(appObj.sdId)){
 			appObj.sdInfo=JSON.parse(localStorage.getItem(appObj.sdId));
 		}else{
@@ -462,8 +465,6 @@ function InitSizeApp(){
 							appObj.sdInfo.idLang=1;								
 						}		
 						SaveUserInfo();
-						
-						globalLangId=appObj.sdInfo.idLang;
 						
 						UpdateLanguage();
 					},
@@ -476,36 +477,40 @@ function InitSizeApp(){
 		if(appObj.sdInfo.isSound==0){
 			AllSoundMute(true);
 		}
-		if(appObj.sdInfo.isTitles==0){			
-			appMc.mcMenu_BtnTitlesBg.texture=InfoTextures["basic"]["basic_btn_titles_no"];
-			appMc.mcUI_Titles.visible = false;
-		}else{
-			appMc.mcUI_Titles.visible = true;
-		}
-		
-		globalLangId=appObj.sdInfo.idLang;
-		
-		*/
 		
 		//-
-		/*
-		appObj.codeStr=Base64.encode("info:"+appObj.sdInfo.idUser+":"+appObj.sdInfo.idLevel+":"+appObj.sdInfo.idPoint+":"+appObj.sdInfo.idLang+":"+appObj.sdInfo.isFinal);
-		appObj.codeStr=Base64.encode(appObj.codeStr);
+		
+		appObj.codeStr = "start:"+appObj.sdInfo.idUser;
+		appObj.codeStr += ":"+appObj.sdInfo.isSound
+		appObj.codeStr += ":"+appObj.sdInfo.idLang;
+		appObj.codeStr += ":"+appObj.sdInfo.idGuild;
+		appObj.codeStr += ":"+appObj.sdInfo.totalGames;
+		appObj.codeStr += ":"+appObj.sdInfo.winGames;
+		appObj.codeStr += ":"+appObj.sdInfo.experienceGame;
+		appObj.codeStr += ":"+appObj.sdInfo.historyGame;
+		appObj.codeStr += ":"+appObj.sdInfo.idShip;
+		appObj.codeStr += ":"+appObj.sdInfo.numCoin;
+		appObj.codeStr += ":"+appObj.sdInfo.numCrystal;
+		
+		appObj.codeBase64 = Base64.encode(appObj.codeStr);
 
-		RequestServer("http://games.studiocation.com/mod_game_if.php", {cm:appObj.codeStr}, AnswerServer);
-		*/
-		
-		//---------------------------------------------------------------------------
-		//- ENTER FRAME		
-		
-		StageEF();
-		
-		//---------------------------------------------------------------------------
-		//- OPEN APP
-		
-		jQuery("#AppContainer").css("visibility", "visible");
-		appMc.mcMain.visible = true;
-		
+		RequestServer("http://games.studiocation.com/mod_game_seabattle.php", {cm:appObj.codeBase64}, ConnectionServer, NotConnectionServer);
 	}
 }	
 
+function ConnectionServer(){				
+	//---------------------------------------------------------------------------
+	//- ENTER FRAME		
+	
+	StageEF();
+	
+	//---------------------------------------------------------------------------
+	//- OPEN APP
+	
+	jQuery("#AppContainer").css("visibility", "visible");
+	appMc.mcMain.visible = true;
+}
+
+function NotConnectionServer(jqXHR, exception){				
+	ConnectionServer();
+}

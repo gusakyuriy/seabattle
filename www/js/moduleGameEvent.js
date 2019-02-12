@@ -47,7 +47,7 @@ function PlayerShot(_idPlayer){
 //- Add smoke
 
 function AddSmoke(_x, _y, _dx, _dy, _n){
-	for(var i=0; i<_n; i++){
+	for(var i=0; i<_n; i++){		
 		appMc["mcSmoke"+gameInfo.effSmokeId].visible = true;
 		appMc["mcSmoke"+gameInfo.effSmokeId].x = _x+_dx*0.5-_dx*Math.random();
 		appMc["mcSmoke"+gameInfo.effSmokeId].y = _y+_dy*0.5-_dy*Math.random();

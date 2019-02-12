@@ -1,10 +1,12 @@
 // -----------------------------------------------------------------------------------
 //- Math
-var PI180=Math.PI/180;
-var rePI180=180/Math.PI;
+
+var toRAD = Math.PI/180;
+var toGRAD = 180/Math.PI;
 
 // -----------------------------------------------------------------------------------
 //- trace
+
 function trace(_str){
     console.log(_str);
 }
@@ -18,6 +20,7 @@ function SaveUserInfo(){
 
 // -----------------------------------------------------------------------------------
 //- Date
+
 Date.prototype.getNextWeekMonday = function() {
     var d = new Date(this.getTime());
     var diff = d.getDate() - d.getDay() + 1+7;
@@ -51,6 +54,7 @@ Date.prototype.getNextWeekSunday = function() {
 };
 
 //- Week ID
+
 Date.prototype.getWeek = function () {
     var target  = new Date(this.valueOf());
     var dayNr   = (this.getDay() + 6) % 7;
@@ -65,17 +69,24 @@ Date.prototype.getWeek = function () {
 
 // -----------------------------------------------------------------------------------
 //- RequestServer
-function RequestServer(_url, _cm, _answerFunc){
-    jQuery.ajax({
-        data: _cm, 
-        type: 'POST',
-        url: _url,
-        success:_answerFunc
-    });
+
+function RequestServer(_url, _cm, _answerFunc, _errorFunc){
+    try{
+		jQuery.ajax({
+			data	: _cm, 
+			type	: 'POST',
+			url		: _url,
+			success	: _answerFunc,
+			error	: _errorFunc
+		});
+	}catch(e){
+		_errorFunc("error", "error");
+	}
 }
 
 // -----------------------------------------------------------------------------------
 //- Debug
+
 var debugInit=false;
 
 function DebugInit(){
@@ -99,16 +110,19 @@ function Debug(_str, _isAppend){
 
 // -----------------------------------------------------------------------------------
 //- Base64
+
 var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 
 // -----------------------------------------------------------------------------------
 //- NumberCode
+
 function NumberEncode(_n){
     return Math.floor(_n+_n*0.6+3);
 }
 
 // -----------------------------------------------------------------------------------
 //- Mix Array
+
 function MixArray(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 

@@ -386,64 +386,65 @@ function InitGameObjects(){
 	//---------------------------------------------------------------------------
 	//- RESIZE
 	
-	TweenMax.to(appObj, 0.5, {overflow:"all", onComplete:Resize});    
-    jQuery(window).resize(function () {
-        Resize();
-    });
+	TweenMax.to(appObj, 0.5, {overflow:"all", onComplete:InitSizeApp});    
+    jQuery(window).resize(InitSizeApp);
 }
 	
 // -----------------------------------------------------------------------------------
 // Resize
 
-function Resize(){	
-	if(appObj.stageSizeInit==false){
-		appObj.stageSizeInit = true;
+function InitSizeApp(){	
+	//- размеры
+	
+	appObj.mainWidth	= Math.ceil(Math.max(jQuery(window).width(), jQuery(window).height()));
+	appObj.mainHeight	= Math.ceil(Math.min(jQuery(window).width(), jQuery(window).height()));
+	appObj.canvasWidth	= Math.ceil(appObj.canvasScale*appObj.mainWidth);
+	appObj.canvasHeight	= Math.ceil(appObj.canvasScale*appObj.mainHeight); 
 		
-		//- размеры
-		
-		appObj.mainWidth	= Math.ceil(Math.max(jQuery(window).width(), jQuery(window).height()));
-		appObj.mainHeight	= Math.ceil(Math.min(jQuery(window).width(), jQuery(window).height()));
-		appObj.canvasWidth	= Math.ceil(appObj.canvasScale*appObj.mainWidth);
-		appObj.canvasHeight	= Math.ceil(appObj.canvasScale*appObj.mainHeight); 
+	renderer.view.style.width	= appObj.mainWidth+"px";
+	renderer.view.style.height	= appObj.mainHeight+"px";							
+	renderer.view.width			= appObj.canvasWidth;
+	renderer.view.height		= appObj.canvasHeight;
+	
+	renderer.resize(appObj.canvasWidth, appObj.canvasHeight);
+	
+	stage.position.set(Math.ceil(appObj.canvasWidth*0.5), Math.ceil(appObj.canvasHeight*0.5));
+	
+	//---------------------------------------------------------------------------
+	
+	appMc.mcMain.scale.set(1, 1);
+	appMc.mcMain.scale.x = appObj.canvasWidth/appObj.graphicNormalWidth;
+	appMc.mcMain.scale.y = appMc.mcMain.scale.x;
+	if(appMc.mcMain.scale.y*appObj.graphicNormalHeight > appObj.canvasHeight){
+		appMc.mcMain.scale.y = appObj.canvasHeight/appObj.graphicNormalHeight;
+		appMc.mcMain.scale.x = appMc.mcMain.scale.y;
+	}
 			
-		renderer.view.style.width	= appObj.mainWidth+"px";
-		renderer.view.style.height	= appObj.mainHeight+"px";							
-		renderer.view.width			= appObj.canvasWidth;
-		renderer.view.height		= appObj.canvasHeight;
-		
-		renderer.resize(appObj.canvasWidth, appObj.canvasHeight);
-		
-		stage.position.set(Math.ceil(appObj.canvasWidth*0.5), Math.ceil(appObj.canvasHeight*0.5));
-		
-		//---------------------------------------------------------------------------
-		
-		appMc.mcMain.scale.set(1, 1);
-		appMc.mcMain.scale.x = appObj.canvasWidth/appObj.graphicNormalWidth;
-		appMc.mcMain.scale.y = appMc.mcMain.scale.x;
-		if(appMc.mcMain.scale.y*appObj.graphicNormalHeight > appObj.canvasHeight){
-			appMc.mcMain.scale.y = appObj.canvasHeight/appObj.graphicNormalHeight;
-			appMc.mcMain.scale.x = appMc.mcMain.scale.y;
-		}
-				
-		//---------------------------------------------------------------------------
-		
-		appMc.mcMainMenu.x = appObj.graphicFullWidth*0.5;
-		
-		appMc.mcMainUIMoney.x = -appObj.canvasWidth*0.5/appMc.mcMain.scale.x;
-		appMc.mcMainUIMoney.y = -appObj.canvasHeight*0.5/appMc.mcMain.scale.y;
-		
-		appMc.mcMainUIWind.y = -appObj.canvasHeight*0.5/appMc.mcMain.scale.y+InfoTextures.bitmaps["ui_wind_control_bg"].height*0.7;
-		
-		//---------------------------------------------------------------------------
-		//- SAVE POSITIONS OBJECTS
-		
-		SavePositionObjects();
+	//---------------------------------------------------------------------------
+	
+	appMc.mcMainMenu.x = appObj.graphicFullWidth*0.5;
+	
+	appMc.mcMainUIMoney.x = -appObj.canvasWidth*0.5/appMc.mcMain.scale.x;
+	appMc.mcMainUIMoney.y = -appObj.canvasHeight*0.5/appMc.mcMain.scale.y;
+	
+	appMc.mcMainUIWind.y = -appObj.canvasHeight*0.5/appMc.mcMain.scale.y+InfoTextures.bitmaps["ui_wind_control_bg"].height*0.7;
+	
+	//---------------------------------------------------------------------------
+	//- SAVE POSITIONS OBJECTS
+	
+	SavePositionObjects();
+	
+	//---------------------------------------------------------------------------
+	
+	if(appObj.stageSizeInit==false){
+		appObj.stageSizeInit = true;	
 		
 		//---------------------------------------------------------------------------
 		//- USER INFORMATION SAVED
 		
 		appObj.sdInfo.isSound=1;
 		appObj.sdInfo.idLang=0;
+		
 		/*
 		try{				
 			appObj.sdInfo.idUser=cordova.platformId+'_'+Math.random().toString(36).substr(2, 9)+'_'+appObj.width+'_'+appObj.height;
@@ -506,18 +507,5 @@ function Resize(){
 		appMc.mcMain.visible = true;
 		
 	}
-	
-	/*
-	jQuery("#AppContainer").removeClass("rotatePortrait");
-	jQuery("#AppContainer").removeClass("rotateLandscape");    
-	jQuery("#AppContainer").css("margin-top", "0px");
-	jQuery("#AppContainer").css("margin-left", "0px");
-	
-	if(jQuery(window).width()>jQuery(window).height()){
-		jQuery("#AppContainer").addClass("rotateLandscape").css("margin-left", appObj.height+"px");
-	}else if(jQuery(window).height()>jQuery(window).width()){ 
-		jQuery("#AppContainer").addClass("rotatePortrait").css("margin-top", appObj.width+"px");
-	}
-	*/
 }	
 

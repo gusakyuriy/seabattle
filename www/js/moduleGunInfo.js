@@ -5,5 +5,4 @@ var GunInfo = [
 		mass		: 10,
 		damage		: 5,
 	},	
-	
 ];

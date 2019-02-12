@@ -1,7 +1,7 @@
 var LevelInfo = [
 	{
 		camera:{
-			scale:0.30, // // min = 0.25
+			scale:0.30,  // min = 0.25
 		},
 		players:{
 			x: 1200,	
